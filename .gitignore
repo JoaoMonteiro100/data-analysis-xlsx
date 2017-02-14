@@ -20,7 +20,8 @@
 ## Plugin-specific files:
 
 # IntelliJ
-/out/	
+/out/
+out/
 
 # Windows image file caches
 Thumbs.db
@@ -69,3 +70,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+.idea/libraries/lib.xml
+*.xml
+*.iml
+*.jar
+*.xlsx
