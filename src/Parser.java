@@ -159,8 +159,7 @@ public class Parser {
         }
     }
 
-    private static void splitDateColumn(Sheet sheet)
-    {
+    private static void splitDateColumn(Sheet sheet) {
         for(int i = 2; i < sheet.getPhysicalNumberOfRows(); i++)
         {
             DataFormatter formatter = new DataFormatter();
@@ -251,12 +250,12 @@ public class Parser {
         for(int i = 2; i < oldSheet.getPhysicalNumberOfRows(); i++)
         {
             DataFormatter formatter = new DataFormatter();
-            XSSFRow row = sheet.createRow((short)i);
+            XSSFRow row = sheet.createRow((short)i-1);
             int currentColumn = 0;
             boolean takesHealthNotes = false;
-            boolean takesNotesOfConsultation = true;
-            boolean understandsDoctors = false;
-            boolean asksToRepeat = false;
+            boolean takesNotesOfConsultation = false;
+            boolean doesNotUnderstandsDoctors = false;
+            boolean doesNotAskToRepeat = false;
             boolean hasMobileDevice = false;
 
             for(int j = 0; j <= oldSheet.getRow(i).getLastCellNum(); j++)
@@ -364,21 +363,19 @@ public class Parser {
                         row.createCell(currentColumn+3).setCellValue(0);
                         for(String item : items)
                         {
-                            if(item.equals("Sobre si próprio(a)"))
-                            {
-                                row.createCell(currentColumn).setCellValue(1);
-                            }
-                            else if(item.equals("Sobre um familiar"))
-                            {
-                                row.createCell(currentColumn+1).setCellValue(1);
-                            }
-                            else if(item.equals("Sobre um(a) amigo(a)"))
-                            {
-                                row.createCell(currentColumn+2).setCellValue(1);
-                            }
-                            else
-                            {
-                                row.createCell(currentColumn+3).setCellValue(1);
+                            switch (item) {
+                                case "Sobre si próprio(a)":
+                                    row.createCell(currentColumn).setCellValue(1);
+                                    break;
+                                case "Sobre um familiar":
+                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    break;
+                                case "Sobre um(a) amigo(a)":
+                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    break;
+                                default:
+                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    break;
                             }
                         }
                     }
@@ -401,45 +398,37 @@ public class Parser {
 
                         for(String item : items)
                         {
-                            if(item.equals("Peso"))
-                            {
-                                row.createCell(currentColumn).setCellValue(1);
-                            }
-                            else if(item.equals("Calorias ingeridas e/ou despendidas"))
-                            {
-                                row.createCell(currentColumn+1).setCellValue(1);
-                            }
-                            else if(item.equals("Batimentos cardíacos ou pulso"))
-                            {
-                                row.createCell(currentColumn+2).setCellValue(1);
-                            }
-                            else if(item.equals("Tensão arterial"))
-                            {
-                                row.createCell(currentColumn+3).setCellValue(1);
-                            }
-                            else if(item.equals("Sintomas ou sinais clínicos"))
-                            {
-                                row.createCell(currentColumn+4).setCellValue(1);
-                            }
-                            else if(item.equals("Nome da(s) doença(s) que tem"))
-                            {
-                                row.createCell(currentColumn+5).setCellValue(1);
-                            }
-                            else if(item.equals("Pontos a discutir numa consulta futura"))
-                            {
-                                row.createCell(currentColumn+6).setCellValue(1);
-                            }
-                            else if(item.equals("Informações encontradas na Web"))
-                            {
-                                row.createCell(currentColumn+7).setCellValue(1);
-                            }
-                            else if(item.equals("Resultados de exames ou análises (exemplo: picar o dedo para saber o açúcar no sangue)"))
-                            {
-                                row.createCell(currentColumn+8).setCellValue(1);
-                            }
-                            else
-                            {
-                                row.createCell(currentColumn+9).setCellValue(1);
+                            switch (item) {
+                                case "Peso":
+                                    row.createCell(currentColumn).setCellValue(1);
+                                    break;
+                                case "Calorias ingeridas e/ou despendidas":
+                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    break;
+                                case "Batimentos cardíacos ou pulso":
+                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    break;
+                                case "Tensão arterial":
+                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    break;
+                                case "Sintomas ou sinais clínicos":
+                                    row.createCell(currentColumn + 4).setCellValue(1);
+                                    break;
+                                case "Nome da(s) doença(s) que tem":
+                                    row.createCell(currentColumn + 5).setCellValue(1);
+                                    break;
+                                case "Pontos a discutir numa consulta futura":
+                                    row.createCell(currentColumn + 6).setCellValue(1);
+                                    break;
+                                case "Informações encontradas na Web":
+                                    row.createCell(currentColumn + 7).setCellValue(1);
+                                    break;
+                                case "Resultados de exames ou análises (exemplo: picar o dedo para saber o açúcar no sangue)":
+                                    row.createCell(currentColumn + 8).setCellValue(1);
+                                    break;
+                                default:
+                                    row.createCell(currentColumn + 9).setCellValue(1);
+                                    break;
                             }
                         }
                     }
@@ -458,25 +447,22 @@ public class Parser {
                         row.createCell(currentColumn+4).setCellValue(0);
                         for(String item : items)
                         {
-                            if(item.equals("Em papel (exemplo: bloco de notas)"))
-                            {
-                                row.createCell(currentColumn).setCellValue(1);
-                            }
-                            else if(item.equals("Num livro de registo fornecido na instituição de saúde (exemplos: livro de grávida, boletim de saúde infantil e juvenil, livro para registo de tensões)"))
-                            {
-                                row.createCell(currentColumn+1).setCellValue(1);
-                            }
-                            else if(item.equals("Numa aplicação para tomar notas (exemplos: Evernote, OneNote, Dropbox Paper, Box Notes)"))
-                            {
-                                row.createCell(currentColumn+2).setCellValue(1);
-                            }
-                            else if(item.equals("Numa aplicação especializada (exemplos: Fitbit, MyFitnessPal, MyChart, BG Monitor Diabetes)"))
-                            {
-                                row.createCell(currentColumn+3).setCellValue(1);
-                            }
-                            else
-                            {
-                                row.createCell(currentColumn+4).setCellValue(1);
+                            switch (item) {
+                                case "Em papel (exemplo: bloco de notas)":
+                                    row.createCell(currentColumn).setCellValue(1);
+                                    break;
+                                case "Num livro de registo fornecido na instituição de saúde (exemplos: livro de grávida, boletim de saúde infantil e juvenil, livro para registo de tensões)":
+                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    break;
+                                case "Numa aplicação para tomar notas (exemplos: Evernote, OneNote, Dropbox Paper, Box Notes)":
+                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    break;
+                                case "Numa aplicação especializada (exemplos: Fitbit, MyFitnessPal, MyChart, BG Monitor Diabetes)":
+                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    break;
+                                default:
+                                    row.createCell(currentColumn + 4).setCellValue(1);
+                                    break;
                             }
                         }
                     }
@@ -524,16 +510,18 @@ public class Parser {
                     switch (contents) {
                         case "Sempre":
                             row.createCell(currentColumn).setCellValue(3);
+                            takesNotesOfConsultation = true;
                             break;
                         case "Muitas vezes":
                             row.createCell(currentColumn).setCellValue(2);
+                            takesNotesOfConsultation = true;
                             break;
                         case "Poucas vezes":
                             row.createCell(currentColumn).setCellValue(1);
+                            takesNotesOfConsultation = true;
                             break;
                         case "Nunca":
                             row.createCell(currentColumn).setCellValue(0);
-                            takesNotesOfConsultation = false;
                             break;
                     }
                 }
@@ -569,29 +557,25 @@ public class Parser {
                         row.createCell(currentColumn+5).setCellValue(0);
                         for(String item : items)
                         {
-                            if(item.equals("Nomes das doenças"))
-                            {
-                                row.createCell(currentColumn).setCellValue(1);
-                            }
-                            else if(item.equals("Opiniões médicas"))
-                            {
-                                row.createCell(currentColumn+1).setCellValue(1);
-                            }
-                            else if(item.equals("Medicamento(s) receitado(s)"))
-                            {
-                                row.createCell(currentColumn+2).setCellValue(1);
-                            }
-                            else if(item.equals("Tratamento prescrito"))
-                            {
-                                row.createCell(currentColumn+3).setCellValue(1);
-                            }
-                            else if(item.equals("Posologia (dose do medicamento, quando o tomar, etc.)"))
-                            {
-                                row.createCell(currentColumn+4).setCellValue(1);
-                            }
-                            else
-                            {
-                                row.createCell(currentColumn+5).setCellValue(1);
+                            switch (item) {
+                                case "Nomes das doenças":
+                                    row.createCell(currentColumn).setCellValue(1);
+                                    break;
+                                case "Opiniões médicas":
+                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    break;
+                                case "Medicamento(s) receitado(s)":
+                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    break;
+                                case "Tratamento prescrito":
+                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    break;
+                                case "Posologia (dose do medicamento, quando o tomar, etc.)":
+                                    row.createCell(currentColumn + 4).setCellValue(1);
+                                    break;
+                                default:
+                                    row.createCell(currentColumn + 5).setCellValue(1);
+                                    break;
                             }
                         }
                     }
@@ -603,23 +587,25 @@ public class Parser {
                     switch (contents) {
                         case "Sempre":
                             row.createCell(currentColumn).setCellValue(3);
-                            understandsDoctors = true;
                             break;
                         case "Muitas vezes":
                             row.createCell(currentColumn).setCellValue(2);
+                            doesNotUnderstandsDoctors = true;
                             break;
                         case "Poucas vezes":
                             row.createCell(currentColumn).setCellValue(1);
+                            doesNotUnderstandsDoctors = true;
                             break;
                         case "Nunca":
                             row.createCell(currentColumn).setCellValue(0);
+                            doesNotUnderstandsDoctors = true;
                             break;
                     }
                 }
                 //why don't you understand doctors?
                 else if(j==14)
                 {
-                    if(!understandsDoctors)
+                    if(doesNotUnderstandsDoctors)
                     {
                         String[] items = contents.split(", ");
                         row.createCell(currentColumn).setCellValue(0);
@@ -632,37 +618,31 @@ public class Parser {
                         row.createCell(currentColumn+7).setCellValue(0);
                         for(String item : items)
                         {
-                            if(item.equals("Pronúncia ou sotaque"))
-                            {
-                                row.createCell(currentColumn).setCellValue(1);
-                            }
-                            else if(item.equals("Volume de voz"))
-                            {
-                                row.createCell(currentColumn+1).setCellValue(1);
-                            }
-                            else if(item.equals("Atitude"))
-                            {
-                                row.createCell(currentColumn+2).setCellValue(1);
-                            }
-                            else if(item.equals("Uso de termos médicos ou técnicos"))
-                            {
-                                row.createCell(currentColumn+3).setCellValue(1);
-                            }
-                            else if(item.equals("Uso de palavras \"caras\""))
-                            {
-                                row.createCell(currentColumn+4).setCellValue(1);
-                            }
-                            else if(item.equals("Sequência de ideias"))
-                            {
-                                row.createCell(currentColumn+5).setCellValue(1);
-                            }
-                            else if(item.equals("Falta de tempo do médico"))
-                            {
-                                row.createCell(currentColumn+6).setCellValue(1);
-                            }
-                            else
-                            {
-                                row.createCell(currentColumn+7).setCellValue(1);
+                            switch (item) {
+                                case "Pronúncia ou sotaque":
+                                    row.createCell(currentColumn).setCellValue(1);
+                                    break;
+                                case "Volume de voz":
+                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    break;
+                                case "Atitude":
+                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    break;
+                                case "Uso de termos médicos ou técnicos":
+                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    break;
+                                case "Uso de palavras \"caras\"":
+                                    row.createCell(currentColumn + 4).setCellValue(1);
+                                    break;
+                                case "Sequência de ideias":
+                                    row.createCell(currentColumn + 5).setCellValue(1);
+                                    break;
+                                case "Falta de tempo do médico":
+                                    row.createCell(currentColumn + 6).setCellValue(1);
+                                    break;
+                                default:
+                                    row.createCell(currentColumn + 7).setCellValue(1);
+                                    break;
                             }
                         }
                     }
@@ -671,21 +651,23 @@ public class Parser {
                 //do you ask to repeat?
                 else if(j==15)
                 {
-                    if(!understandsDoctors)
+                    if(doesNotUnderstandsDoctors)
                     {
                         switch (contents) {
                             case "Sempre":
                                 row.createCell(currentColumn).setCellValue(3);
-                                asksToRepeat = true;
                                 break;
                             case "Muitas vezes":
                                 row.createCell(currentColumn).setCellValue(2);
+                                doesNotAskToRepeat = true;
                                 break;
                             case "Poucas vezes":
                                 row.createCell(currentColumn).setCellValue(1);
+                                doesNotAskToRepeat = true;
                                 break;
                             case "Nunca":
                                 row.createCell(currentColumn).setCellValue(0);
+                                doesNotAskToRepeat = true;
                                 break;
                         }
                     }
@@ -693,7 +675,7 @@ public class Parser {
                 //why don't you ask to repeat?
                 else if(j==16)
                 {
-                    if(!asksToRepeat)
+                    if(doesNotAskToRepeat)
                     {
                         String[] items = contents.split(", ");
                         row.createCell(currentColumn).setCellValue(0);
@@ -706,37 +688,31 @@ public class Parser {
                         row.createCell(currentColumn+7).setCellValue(0);
                         for(String item : items)
                         {
-                            if(item.equals("Falta de confiança"))
-                            {
-                                row.createCell(currentColumn).setCellValue(1);
-                            }
-                            else if(item.equals("Receio de parecer ignorante"))
-                            {
-                                row.createCell(currentColumn+1).setCellValue(1);
-                            }
-                            else if(item.equals("Não querer incomodar"))
-                            {
-                                row.createCell(currentColumn+2).setCellValue(1);
-                            }
-                            else if(item.equals("Alguém lhe explicará mais tarde"))
-                            {
-                                row.createCell(currentColumn+3).setCellValue(1);
-                            }
-                            else if(item.equals("Confia no médico e não precisa de saber mais"))
-                            {
-                                row.createCell(currentColumn+4).setCellValue(1);
-                            }
-                            else if(item.equals("Falta de tempo ou oportunidade"))
-                            {
-                                row.createCell(currentColumn+5).setCellValue(1);
-                            }
-                            else if(item.equals("Desinteresse"))
-                            {
-                                row.createCell(currentColumn+6).setCellValue(1);
-                            }
-                            else
-                            {
-                                row.createCell(currentColumn+7).setCellValue(1);
+                            switch (item) {
+                                case "Falta de confiança":
+                                    row.createCell(currentColumn).setCellValue(1);
+                                    break;
+                                case "Receio de parecer ignorante":
+                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    break;
+                                case "Não querer incomodar":
+                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    break;
+                                case "Alguém lhe explicará mais tarde":
+                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    break;
+                                case "Confia no médico e não precisa de saber mais":
+                                    row.createCell(currentColumn + 4).setCellValue(1);
+                                    break;
+                                case "Falta de tempo ou oportunidade":
+                                    row.createCell(currentColumn + 5).setCellValue(1);
+                                    break;
+                                case "Desinteresse":
+                                    row.createCell(currentColumn + 6).setCellValue(1);
+                                    break;
+                                default:
+                                    row.createCell(currentColumn + 7).setCellValue(1);
+                                    break;
                             }
                         }
                     }
@@ -771,25 +747,22 @@ public class Parser {
                         row.createCell(currentColumn+4).setCellValue(0);
                         for(String item : items)
                         {
-                            if(item.equals("Chamadas e SMS"))
-                            {
-                                row.createCell(currentColumn).setCellValue(1);
-                            }
-                            else if(item.equals("Acesso à Internet"))
-                            {
-                                row.createCell(currentColumn+1).setCellValue(1);
-                            }
-                            else if(item.equals("Aplicações originais do dispositivo (exemplos: bloco de notas, calculadora)"))
-                            {
-                                row.createCell(currentColumn+2).setCellValue(1);
-                            }
-                            else if(item.equals("Aplicações que instalou (exemplos: jogos, redes sociais)"))
-                            {
-                                row.createCell(currentColumn+3).setCellValue(1);
-                            }
-                            else
-                            {
-                                row.createCell(currentColumn+4).setCellValue(1);
+                            switch (item) {
+                                case "Chamadas e SMS":
+                                    row.createCell(currentColumn).setCellValue(1);
+                                    break;
+                                case "Acesso à Internet":
+                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    break;
+                                case "Aplicações originais do dispositivo (exemplos: bloco de notas, calculadora)":
+                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    break;
+                                case "Aplicações que instalou (exemplos: jogos, redes sociais)":
+                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    break;
+                                default:
+                                    row.createCell(currentColumn + 4).setCellValue(1);
+                                    break;
                             }
                         }
                     }
@@ -916,13 +889,7 @@ public class Parser {
                 currentColumn++;
             }
         }
-/*
-        XSSFRow row = sheet.createRow((short)1);
-        row.createCell(0).setCellValue("1");
-        row.createCell(1).setCellValue("Sankumarsingh");
-        row.createCell(2).setCellValue("India");
-        row.createCell(3).setCellValue("sankumarsingh@gmail.com");
-*/
+
         FileOutputStream fileOut = new FileOutputStream(filename);
         workbook.write(fileOut);
         fileOut.close();
