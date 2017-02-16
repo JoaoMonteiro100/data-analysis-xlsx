@@ -75,3 +75,5 @@ Temporary Items
 *.iml
 *.jar
 *.xlsx
+*.png
+poi-3.16-beta2/

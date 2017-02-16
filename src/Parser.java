@@ -175,7 +175,7 @@ public class Parser {
     }
 
     private static void createnewFile(Sheet oldSheet) throws IOException {
-        String filename = "Attempt.xlsx" ;
+        String filename = "Data.xlsx" ;
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("FirstSheet");
 
@@ -451,14 +451,23 @@ public class Parser {
                                 case "Em papel (exemplo: bloco de notas)":
                                     row.createCell(currentColumn).setCellValue(1);
                                     break;
-                                case "Num livro de registo fornecido na instituição de saúde (exemplos: livro de grávida, boletim de saúde infantil e juvenil, livro para registo de tensões)":
+                                case "Num livro de registo fornecido na instituição de saúde (exemplos: livro de grávida":
                                     row.createCell(currentColumn + 1).setCellValue(1);
                                     break;
-                                case "Numa aplicação para tomar notas (exemplos: Evernote, OneNote, Dropbox Paper, Box Notes)":
+                                case "Numa aplicação para tomar notas (exemplos: Evernote":
                                     row.createCell(currentColumn + 2).setCellValue(1);
                                     break;
-                                case "Numa aplicação especializada (exemplos: Fitbit, MyFitnessPal, MyChart, BG Monitor Diabetes)":
+                                case "Numa aplicação especializada (exemplos: Fitbit":
                                     row.createCell(currentColumn + 3).setCellValue(1);
+                                    break;
+                                case "boletim de saúde infantil e juvenil":
+                                case "livro para registo de tensões)":
+                                case "OneNote":
+                                case "Dropbox Paper":
+                                case "Box Notes)":
+                                case "MyFitnessPal":
+                                case "MyChart":
+                                case "BG Monitor Diabetes)":
                                     break;
                                 default:
                                     row.createCell(currentColumn + 4).setCellValue(1);
@@ -570,8 +579,11 @@ public class Parser {
                                 case "Tratamento prescrito":
                                     row.createCell(currentColumn + 3).setCellValue(1);
                                     break;
-                                case "Posologia (dose do medicamento, quando o tomar, etc.)":
+                                case "Posologia (dose do medicamento":
                                     row.createCell(currentColumn + 4).setCellValue(1);
+                                    break;
+                                case "quando o tomar":
+                                case "etc.)":
                                     break;
                                 default:
                                     row.createCell(currentColumn + 5).setCellValue(1);
@@ -723,14 +735,14 @@ public class Parser {
                 {
                     switch (contents) {
                         case "Sim":
-                            row.createCell(currentColumn).setCellValue(3);
+                            row.createCell(currentColumn).setCellValue(1);
                             hasMobileDevice = true;
                             break;
                         case "Não":
-                            row.createCell(currentColumn).setCellValue(2);
+                            row.createCell(currentColumn).setCellValue(0);
                             break;
                         case "Não sei":
-                            row.createCell(currentColumn).setCellValue(1);
+                            row.createCell(currentColumn).setCellValue(2);
                             break;
                     }
                 }
@@ -754,11 +766,14 @@ public class Parser {
                                 case "Acesso à Internet":
                                     row.createCell(currentColumn + 1).setCellValue(1);
                                     break;
-                                case "Aplicações originais do dispositivo (exemplos: bloco de notas, calculadora)":
+                                case "Aplicações originais do dispositivo (exemplos: bloco de notas":
                                     row.createCell(currentColumn + 2).setCellValue(1);
                                     break;
-                                case "Aplicações que instalou (exemplos: jogos, redes sociais)":
+                                case "Aplicações que instalou (exemplos: jogos":
                                     row.createCell(currentColumn + 3).setCellValue(1);
+                                    break;
+                                case "redes sociais)":
+                                case "calculadora)":
                                     break;
                                 default:
                                     row.createCell(currentColumn + 4).setCellValue(1);
@@ -893,6 +908,6 @@ public class Parser {
         FileOutputStream fileOut = new FileOutputStream(filename);
         workbook.write(fileOut);
         fileOut.close();
-        System.out.println("Your excel file has been generated!");
+        System.out.println("Excel file generated!");
     }
 }
