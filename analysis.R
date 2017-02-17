@@ -16,14 +16,15 @@ library(hexbin)
 #
 ht <- read_excel("Data.xlsx")
 options(max.print=1000000) #make sure everything is always printed
-ht[is.na(ht)]<-(-1) #all empty cells become -1
+#ht[is.na(ht)]<-(-1) #all empty cells become -1
 info <- ht[,-c(1,2)] #first two columns (date & time) are ignored
 #info #print excel data
 
 #
-# MAKE COLUMN NAMES SHORTER (full names can be seen in the .xlsx file)
+# DATA TREATMENT
 #
 
+# Shortening header names (full names can be seen in the .xlsx file)
 colnames(info) <- c("Gend", "Age", "Qual",
                     "A-Note",
                     "A1-own", "A1-fam", "A1-frnd", "A1-othr",
@@ -46,24 +47,78 @@ colnames(info) <- c("Gend", "Age", "Qual",
                     "D6-note",
                     "D7-use")
 
+# Factoring variables and ordering them
+info$Gend <- factor(info$Gend)
+info$Age <- factor(info$Age)
+info$Qual <- factor(info$Qual, levels = c("lower than 4th grade", "4th grade", "9th grade", "12th grade", "bachelor's degree", "master's degree", "doctoral degree"))
+info$`A-Note` <- factor(info$`A-Note`)
+info$`A1-own` <- factor(info$`A1-own`)
+info$`A1-fam` <- factor(info$`A1-fam`)
+info$`A1-frnd` <- factor(info$`A1-frnd`)
+info$`A1-othr` <- factor(info$`A1-othr`)
+info$`A2-wght` <- factor(info$`A2-wght`)
+info$`A2-cals` <- factor(info$`A2-cals`)
+info$`A2-hrt` <- factor(info$`A2-hrt`)
+info$`A2-prss` <- factor(info$`A2-prss`)
+info$`A2-sypt` <- factor(info$`A2-sypt`)
+info$`A2-ills` <- factor(info$`A2-ills`)
+info$`A2-tpcs` <- factor(info$`A2-tpcs`)
+info$`A2-onln` <- factor(info$`A2-onln`)
+info$`A2-anls` <- factor(info$`A2-anls`)
+info$`A2-othr` <- factor(info$`A2-othr`)
+info$`A3-papr` <- factor(info$`A3-papr`)
+info$`A3-book` <- factor(info$`A3-book`)
+info$`A3-napp` <- factor(info$`A3-napp`)
+info$`A3-sapp` <- factor(info$`A3-sapp`)
+info$`A3-othr` <- factor(info$`A3-othr`)
+info$Frgt <- factor(info$Frgt, levels = c("never", "occasionally", "often", "always"))
+info$Dnot <- factor(info$Dnot, levels = c("never", "occasionally", "often", "always"))
+info$`B-Cnot` <- factor(info$`B-Cnot`, levels = c("never", "occasionally", "often", "always"))
+info$`B1-when` <- factor(info$`B1-when`, levels = c("during", "after", "later"))
+info$`B2-name` <- factor(info$`B2-name`)
+info$`B2-opns` <- factor(info$`B2-opns`)
+info$`B2-meds` <- factor(info$`B2-meds`)
+info$`B2-trtm` <- factor(info$`B2-trtm`)
+info$`B2-dose` <- factor(info$`B2-dose`)
+info$`B2-othr` <- factor(info$`B2-othr`)
+info$`C-Undr` <- factor(info$`C-Undr`, levels = c("never", "occasionally", "often", "always"))
+info$`C1-pron` <- factor(info$`C1-pron`)
+info$`C1-volm` <- factor(info$`C1-volm`)
+info$`C1-atti` <- factor(info$`C1-atti`)
+info$`C1-tech` <- factor(info$`C1-tech`)
+info$`C1-expn` <- factor(info$`C1-expn`)
+info$`C1-ordr` <- factor(info$`C1-ordr`)
+info$`C1-time` <- factor(info$`C1-time`)
+info$`C1-othr` <- factor(info$`C1-othr`)
+info$`C2-rept` <- factor(info$`C2-rept`, levels = c("never", "occasionally", "often", "always"))
+info$`C21-cnfd` <- factor(info$`C21-cnfd`)
+info$`C21-ignt` <- factor(info$`C21-ignt`)
+info$`C21-bthr` <- factor(info$`C21-bthr`)
+info$`C21-latr` <- factor(info$`C21-latr`)
+info$`C21-trst` <- factor(info$`C21-trst`)
+info$`C21-time` <- factor(info$`C21-time`)
+info$`C21-uint` <- factor(info$`C21-uint`)
+info$`C21-othr` <- factor(info$`C21-othr`)
+info$`D-Mobl` <- factor(info$`D-Mobl`, levels = c("no", "yes", "not sure"))
+info$`D1-call` <- factor(info$`D1-call`)
+info$`D1-int` <- factor(info$`D1-int`)
+info$`D1-napp` <- factor(info$`D1-napp`)
+info$`D1-iapp` <- factor(info$`D1-iapp`)
+info$`D1-othr` <- factor(info$`D1-othr`)
+info$`D2-os` <- factor(info$`D2-os`, levels = c("android", "blackberry", "iOS", "windows", "other", "not sure"))
+info$`D3-rcrd` <- factor(info$`D3-rcrd`, levels = c("disagree", "indifferent", "agree"))
+info$`D4-trns` <- factor(info$`D4-trns`, levels = c("disagree", "indifferent", "agree"))
+info$`D5-defs` <- factor(info$`D5-defs`, levels = c("disagree", "indifferent", "agree"))
+info$`D6-note` <- factor(info$`D6-note`, levels = c("disagree", "indifferent", "agree"))
+info$`D7-use` <- factor(info$`D7-use`, levels = c("no", "maybe", "yes"))
+
+# Tables with all the data
+summary(info)
+
+
 #
 # INFO ANALYSIS
 #
-
-# Correlation between nonconditional questions
-# (correlation with column #52, "do you have a mobile device?", may be wrong because 0=no, 1=yes, 2=not sure)
-corrplot(cor(info[,c(1,2,3,4,24,25,26,34,52)]), method="color", tl.cex = 1, type="full", addCoef.col = "white")
-
-# Correlation between conditional questions
-# (might be affected from NA answers being transformed into -1)
-corrplot(cor(info[,c(5,6,7,8)]), method="color", tl.cex = 1, type="full", addCoef.col = "white")
-corrplot(cor(info[,c(9,10,11,12,13,14,15,16,17,18)]), method="color", tl.cex = 1, type="full", addCoef.col = "white")
-corrplot(cor(info[,c(19,20,21,22,23)]), method="color", tl.cex = 1, type="full", addCoef.col = "white")
-corrplot(cor(info[,c(27,28,29,30,31,32,33)]), method="color", tl.cex = 1, type="full", addCoef.col = "white")
-corrplot(cor(info[,c(35,36,37,38,39,40,41,42,43)]), method="color", tl.cex = 1, type="full", addCoef.col = "white")
-corrplot(cor(info[,c(44,45,46,47,48,49,50,51)]), method="color", tl.cex = 1, type="full", addCoef.col = "white")
-corrplot(cor(info[,c(53,54,55,56,57,58,59,60,61,62,63)]), method="color", tl.cex = 1, type="full", addCoef.col = "white")
-corrplot(cor(info[,c(59,60,61,62,63)]), method="color", tl.cex = 1, type="full", addCoef.col = "white")
 
 # Histograms
 ggplot() + aes(info$Gend)+ geom_histogram(binwidth=1)
