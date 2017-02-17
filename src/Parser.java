@@ -279,15 +279,15 @@ public class Parser {
                 {
                     if(contents.equals("Masculino"))
                     {
-                        row.createCell(currentColumn).setCellValue(0);
+                        row.createCell(currentColumn).setCellValue("male");
                     }
                     else if(contents.equals("Feminino"))
                     {
-                        row.createCell(currentColumn).setCellValue(1);
+                        row.createCell(currentColumn).setCellValue("female");
                     }
                     else if(!contents.isEmpty()) //if it is empty, answer is not valid
                     {
-                        row.createCell(currentColumn).setCellValue(2);
+                        row.createCell(currentColumn).setCellValue("other");
                     }
                 }
                 //age
@@ -295,19 +295,19 @@ public class Parser {
                 {
                     switch (contents) {
                         case "18-25 anos":
-                            row.createCell(currentColumn).setCellValue(18);
+                            row.createCell(currentColumn).setCellValue("18-25 years old");
                             break;
                         case "26-35 anos":
-                            row.createCell(currentColumn).setCellValue(26);
+                            row.createCell(currentColumn).setCellValue("26-35 years old");
                             break;
                         case "36-49 anos":
-                            row.createCell(currentColumn).setCellValue(36);
+                            row.createCell(currentColumn).setCellValue("36-49 years old");
                             break;
                         case "50-64 anos":
-                            row.createCell(currentColumn).setCellValue(50);
+                            row.createCell(currentColumn).setCellValue("50-64 years old");
                             break;
                         case "65+ anos":
-                            row.createCell(currentColumn).setCellValue(65);
+                            row.createCell(currentColumn).setCellValue("65+ years old");
                             break;
                     }
                 }
@@ -316,25 +316,25 @@ public class Parser {
                 {
                     switch (contents) {
                         case "Não completei a 4.ª classe":
-                            row.createCell(currentColumn).setCellValue(0);
+                            row.createCell(currentColumn).setCellValue("lower than 4th grade");
                             break;
                         case "4.ª classe":
-                            row.createCell(currentColumn).setCellValue(4);
+                            row.createCell(currentColumn).setCellValue("4th grade");
                             break;
                         case "9.º ano":
-                            row.createCell(currentColumn).setCellValue(9);
+                            row.createCell(currentColumn).setCellValue("9th grade");
                             break;
                         case "12.º ano":
-                            row.createCell(currentColumn).setCellValue(12);
+                            row.createCell(currentColumn).setCellValue("12th grade");
                             break;
                         case "Licenciatura ou bacharelato":
-                            row.createCell(currentColumn).setCellValue(15);
+                            row.createCell(currentColumn).setCellValue("bachelor's degree");
                             break;
                         case "Mestrado":
-                            row.createCell(currentColumn).setCellValue(17);
+                            row.createCell(currentColumn).setCellValue("master's degree");
                             break;
                         case "Doutoramento":
-                            row.createCell(currentColumn).setCellValue(20);
+                            row.createCell(currentColumn).setCellValue("doctoral degree");
                             break;
                     }
                 }
@@ -343,11 +343,11 @@ public class Parser {
                 {
                     switch (contents) {
                         case "Sim":
-                            row.createCell(currentColumn).setCellValue(1);
+                            row.createCell(currentColumn).setCellValue("yes");
                             takesHealthNotes = true;
                             break;
                         case "Não":
-                            row.createCell(currentColumn).setCellValue(0);
+                            row.createCell(currentColumn).setCellValue("no");
                             break;
                     }
                 }
@@ -357,24 +357,24 @@ public class Parser {
                     if(takesHealthNotes)
                     {
                         String[] items = contents.split(", ");
-                        row.createCell(currentColumn).setCellValue(0);
-                        row.createCell(currentColumn+1).setCellValue(0);
-                        row.createCell(currentColumn+2).setCellValue(0);
-                        row.createCell(currentColumn+3).setCellValue(0);
+                        row.createCell(currentColumn).setCellValue("no");
+                        row.createCell(currentColumn+1).setCellValue("no");
+                        row.createCell(currentColumn+2).setCellValue("no");
+                        row.createCell(currentColumn+3).setCellValue("no");
                         for(String item : items)
                         {
                             switch (item) {
                                 case "Sobre si próprio(a)":
-                                    row.createCell(currentColumn).setCellValue(1);
+                                    row.createCell(currentColumn).setCellValue("yes");
                                     break;
                                 case "Sobre um familiar":
-                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    row.createCell(currentColumn + 1).setCellValue("yes");
                                     break;
                                 case "Sobre um(a) amigo(a)":
-                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    row.createCell(currentColumn + 2).setCellValue("yes");
                                     break;
                                 default:
-                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    row.createCell(currentColumn + 3).setCellValue("yes");
                                     break;
                             }
                         }
@@ -385,49 +385,49 @@ public class Parser {
                 else if(j==6) {
                     if (takesHealthNotes) {
                         String[] items = contents.split(", ");
-                        row.createCell(currentColumn).setCellValue(0);
-                        row.createCell(currentColumn+1).setCellValue(0);
-                        row.createCell(currentColumn+2).setCellValue(0);
-                        row.createCell(currentColumn+3).setCellValue(0);
-                        row.createCell(currentColumn+4).setCellValue(0);
-                        row.createCell(currentColumn+5).setCellValue(0);
-                        row.createCell(currentColumn+6).setCellValue(0);
-                        row.createCell(currentColumn+7).setCellValue(0);
-                        row.createCell(currentColumn+8).setCellValue(0);
-                        row.createCell(currentColumn+9).setCellValue(0);
+                        row.createCell(currentColumn).setCellValue("no");
+                        row.createCell(currentColumn+1).setCellValue("no");
+                        row.createCell(currentColumn+2).setCellValue("no");
+                        row.createCell(currentColumn+3).setCellValue("no");
+                        row.createCell(currentColumn+4).setCellValue("no");
+                        row.createCell(currentColumn+5).setCellValue("no");
+                        row.createCell(currentColumn+6).setCellValue("no");
+                        row.createCell(currentColumn+7).setCellValue("no");
+                        row.createCell(currentColumn+8).setCellValue("no");
+                        row.createCell(currentColumn+9).setCellValue("no");
 
                         for(String item : items)
                         {
                             switch (item) {
                                 case "Peso":
-                                    row.createCell(currentColumn).setCellValue(1);
+                                    row.createCell(currentColumn).setCellValue("yes");
                                     break;
                                 case "Calorias ingeridas e/ou despendidas":
-                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    row.createCell(currentColumn + 1).setCellValue("yes");
                                     break;
                                 case "Batimentos cardíacos ou pulso":
-                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    row.createCell(currentColumn + 2).setCellValue("yes");
                                     break;
                                 case "Tensão arterial":
-                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    row.createCell(currentColumn + 3).setCellValue("yes");
                                     break;
                                 case "Sintomas ou sinais clínicos":
-                                    row.createCell(currentColumn + 4).setCellValue(1);
+                                    row.createCell(currentColumn + 4).setCellValue("yes");
                                     break;
                                 case "Nome da(s) doença(s) que tem":
-                                    row.createCell(currentColumn + 5).setCellValue(1);
+                                    row.createCell(currentColumn + 5).setCellValue("yes");
                                     break;
                                 case "Pontos a discutir numa consulta futura":
-                                    row.createCell(currentColumn + 6).setCellValue(1);
+                                    row.createCell(currentColumn + 6).setCellValue("yes");
                                     break;
                                 case "Informações encontradas na Web":
-                                    row.createCell(currentColumn + 7).setCellValue(1);
+                                    row.createCell(currentColumn + 7).setCellValue("yes");
                                     break;
                                 case "Resultados de exames ou análises (exemplo: picar o dedo para saber o açúcar no sangue)":
-                                    row.createCell(currentColumn + 8).setCellValue(1);
+                                    row.createCell(currentColumn + 8).setCellValue("yes");
                                     break;
                                 default:
-                                    row.createCell(currentColumn + 9).setCellValue(1);
+                                    row.createCell(currentColumn + 9).setCellValue("yes");
                                     break;
                             }
                         }
@@ -440,25 +440,25 @@ public class Parser {
                     if(takesHealthNotes)
                     {
                         String[] items = contents.split(", ");
-                        row.createCell(currentColumn).setCellValue(0);
-                        row.createCell(currentColumn+1).setCellValue(0);
-                        row.createCell(currentColumn+2).setCellValue(0);
-                        row.createCell(currentColumn+3).setCellValue(0);
-                        row.createCell(currentColumn+4).setCellValue(0);
+                        row.createCell(currentColumn).setCellValue("no");
+                        row.createCell(currentColumn+1).setCellValue("no");
+                        row.createCell(currentColumn+2).setCellValue("no");
+                        row.createCell(currentColumn+3).setCellValue("no");
+                        row.createCell(currentColumn+4).setCellValue("no");
                         for(String item : items)
                         {
                             switch (item) {
                                 case "Em papel (exemplo: bloco de notas)":
-                                    row.createCell(currentColumn).setCellValue(1);
+                                    row.createCell(currentColumn).setCellValue("yes");
                                     break;
                                 case "Num livro de registo fornecido na instituição de saúde (exemplos: livro de grávida":
-                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    row.createCell(currentColumn + 1).setCellValue("yes");
                                     break;
                                 case "Numa aplicação para tomar notas (exemplos: Evernote":
-                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    row.createCell(currentColumn + 2).setCellValue("yes");
                                     break;
                                 case "Numa aplicação especializada (exemplos: Fitbit":
-                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    row.createCell(currentColumn + 3).setCellValue("yes");
                                     break;
                                 case "boletim de saúde infantil e juvenil":
                                 case "livro para registo de tensões)":
@@ -470,7 +470,7 @@ public class Parser {
                                 case "BG Monitor Diabetes)":
                                     break;
                                 default:
-                                    row.createCell(currentColumn + 4).setCellValue(1);
+                                    row.createCell(currentColumn + 4).setCellValue("yes");
                                     break;
                             }
                         }
@@ -482,16 +482,16 @@ public class Parser {
                 {
                     switch (contents) {
                         case "Sempre":
-                            row.createCell(currentColumn).setCellValue(3);
+                            row.createCell(currentColumn).setCellValue("always");
                             break;
                         case "Muitas vezes":
-                            row.createCell(currentColumn).setCellValue(2);
+                            row.createCell(currentColumn).setCellValue("often");
                             break;
                         case "Poucas vezes":
-                            row.createCell(currentColumn).setCellValue(1);
+                            row.createCell(currentColumn).setCellValue("occasionally");
                             break;
                         case "Nunca":
-                            row.createCell(currentColumn).setCellValue(0);
+                            row.createCell(currentColumn).setCellValue("never");
                             break;
                     }
                 }
@@ -500,16 +500,16 @@ public class Parser {
                 {
                     switch (contents) {
                         case "Sempre":
-                            row.createCell(currentColumn).setCellValue(3);
+                            row.createCell(currentColumn).setCellValue("always");
                             break;
                         case "Muitas vezes":
-                            row.createCell(currentColumn).setCellValue(2);
+                            row.createCell(currentColumn).setCellValue("often");
                             break;
                         case "Poucas vezes":
-                            row.createCell(currentColumn).setCellValue(1);
+                            row.createCell(currentColumn).setCellValue("occasionally");
                             break;
                         case "Nunca":
-                            row.createCell(currentColumn).setCellValue(0);
+                            row.createCell(currentColumn).setCellValue("never");
                             break;
                     }
                 }
@@ -518,19 +518,19 @@ public class Parser {
                 {
                     switch (contents) {
                         case "Sempre":
-                            row.createCell(currentColumn).setCellValue(3);
+                            row.createCell(currentColumn).setCellValue("always");
                             takesNotesOfConsultation = true;
                             break;
                         case "Muitas vezes":
-                            row.createCell(currentColumn).setCellValue(2);
+                            row.createCell(currentColumn).setCellValue("often");
                             takesNotesOfConsultation = true;
                             break;
                         case "Poucas vezes":
-                            row.createCell(currentColumn).setCellValue(1);
+                            row.createCell(currentColumn).setCellValue("occasionally");
                             takesNotesOfConsultation = true;
                             break;
                         case "Nunca":
-                            row.createCell(currentColumn).setCellValue(0);
+                            row.createCell(currentColumn).setCellValue("never");
                             break;
                     }
                 }
@@ -541,13 +541,13 @@ public class Parser {
                     {
                         switch (contents) {
                             case "Durante a consulta":
-                                row.createCell(currentColumn).setCellValue(0);
+                                row.createCell(currentColumn).setCellValue("during");
                                 break;
                             case "Imediatamente após a consulta":
-                                row.createCell(currentColumn).setCellValue(1);
+                                row.createCell(currentColumn).setCellValue("after");
                                 break;
                             case "Algum tempo depois da consulta":
-                                row.createCell(currentColumn).setCellValue(2);
+                                row.createCell(currentColumn).setCellValue("later");
                                 break;
                         }
                     }
@@ -558,35 +558,35 @@ public class Parser {
                     if(takesNotesOfConsultation)
                     {
                         String[] items = contents.split(", ");
-                        row.createCell(currentColumn).setCellValue(0);
-                        row.createCell(currentColumn+1).setCellValue(0);
-                        row.createCell(currentColumn+2).setCellValue(0);
-                        row.createCell(currentColumn+3).setCellValue(0);
-                        row.createCell(currentColumn+4).setCellValue(0);
-                        row.createCell(currentColumn+5).setCellValue(0);
+                        row.createCell(currentColumn).setCellValue("no");
+                        row.createCell(currentColumn+1).setCellValue("no");
+                        row.createCell(currentColumn+2).setCellValue("no");
+                        row.createCell(currentColumn+3).setCellValue("no");
+                        row.createCell(currentColumn+4).setCellValue("no");
+                        row.createCell(currentColumn+5).setCellValue("no");
                         for(String item : items)
                         {
                             switch (item) {
                                 case "Nomes das doenças":
-                                    row.createCell(currentColumn).setCellValue(1);
+                                    row.createCell(currentColumn).setCellValue("yes");
                                     break;
                                 case "Opiniões médicas":
-                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    row.createCell(currentColumn + 1).setCellValue("yes");
                                     break;
                                 case "Medicamento(s) receitado(s)":
-                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    row.createCell(currentColumn + 2).setCellValue("yes");
                                     break;
                                 case "Tratamento prescrito":
-                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    row.createCell(currentColumn + 3).setCellValue("yes");
                                     break;
                                 case "Posologia (dose do medicamento":
-                                    row.createCell(currentColumn + 4).setCellValue(1);
+                                    row.createCell(currentColumn + 4).setCellValue("yes");
                                     break;
                                 case "quando o tomar":
                                 case "etc.)":
                                     break;
                                 default:
-                                    row.createCell(currentColumn + 5).setCellValue(1);
+                                    row.createCell(currentColumn + 5).setCellValue("yes");
                                     break;
                             }
                         }
@@ -598,18 +598,18 @@ public class Parser {
                 {
                     switch (contents) {
                         case "Sempre":
-                            row.createCell(currentColumn).setCellValue(3);
+                            row.createCell(currentColumn).setCellValue("always");
                             break;
                         case "Muitas vezes":
-                            row.createCell(currentColumn).setCellValue(2);
+                            row.createCell(currentColumn).setCellValue("often");
                             doesNotUnderstandsDoctors = true;
                             break;
                         case "Poucas vezes":
-                            row.createCell(currentColumn).setCellValue(1);
+                            row.createCell(currentColumn).setCellValue("occasionally");
                             doesNotUnderstandsDoctors = true;
                             break;
                         case "Nunca":
-                            row.createCell(currentColumn).setCellValue(0);
+                            row.createCell(currentColumn).setCellValue("never");
                             doesNotUnderstandsDoctors = true;
                             break;
                     }
@@ -620,40 +620,40 @@ public class Parser {
                     if(doesNotUnderstandsDoctors)
                     {
                         String[] items = contents.split(", ");
-                        row.createCell(currentColumn).setCellValue(0);
-                        row.createCell(currentColumn+1).setCellValue(0);
-                        row.createCell(currentColumn+2).setCellValue(0);
-                        row.createCell(currentColumn+3).setCellValue(0);
-                        row.createCell(currentColumn+4).setCellValue(0);
-                        row.createCell(currentColumn+5).setCellValue(0);
-                        row.createCell(currentColumn+6).setCellValue(0);
-                        row.createCell(currentColumn+7).setCellValue(0);
+                        row.createCell(currentColumn).setCellValue("no");
+                        row.createCell(currentColumn+1).setCellValue("no");
+                        row.createCell(currentColumn+2).setCellValue("no");
+                        row.createCell(currentColumn+3).setCellValue("no");
+                        row.createCell(currentColumn+4).setCellValue("no");
+                        row.createCell(currentColumn+5).setCellValue("no");
+                        row.createCell(currentColumn+6).setCellValue("no");
+                        row.createCell(currentColumn+7).setCellValue("no");
                         for(String item : items)
                         {
                             switch (item) {
                                 case "Pronúncia ou sotaque":
-                                    row.createCell(currentColumn).setCellValue(1);
+                                    row.createCell(currentColumn).setCellValue("yes");
                                     break;
                                 case "Volume de voz":
-                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    row.createCell(currentColumn + 1).setCellValue("yes");
                                     break;
                                 case "Atitude":
-                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    row.createCell(currentColumn + 2).setCellValue("yes");
                                     break;
                                 case "Uso de termos médicos ou técnicos":
-                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    row.createCell(currentColumn + 3).setCellValue("yes");
                                     break;
                                 case "Uso de palavras \"caras\"":
-                                    row.createCell(currentColumn + 4).setCellValue(1);
+                                    row.createCell(currentColumn + 4).setCellValue("yes");
                                     break;
                                 case "Sequência de ideias":
-                                    row.createCell(currentColumn + 5).setCellValue(1);
+                                    row.createCell(currentColumn + 5).setCellValue("yes");
                                     break;
                                 case "Falta de tempo do médico":
-                                    row.createCell(currentColumn + 6).setCellValue(1);
+                                    row.createCell(currentColumn + 6).setCellValue("yes");
                                     break;
                                 default:
-                                    row.createCell(currentColumn + 7).setCellValue(1);
+                                    row.createCell(currentColumn + 7).setCellValue("yes");
                                     break;
                             }
                         }
@@ -667,18 +667,18 @@ public class Parser {
                     {
                         switch (contents) {
                             case "Sempre":
-                                row.createCell(currentColumn).setCellValue(3);
+                                row.createCell(currentColumn).setCellValue("always");
                                 break;
                             case "Muitas vezes":
-                                row.createCell(currentColumn).setCellValue(2);
+                                row.createCell(currentColumn).setCellValue("often");
                                 doesNotAskToRepeat = true;
                                 break;
                             case "Poucas vezes":
-                                row.createCell(currentColumn).setCellValue(1);
+                                row.createCell(currentColumn).setCellValue("occasionally");
                                 doesNotAskToRepeat = true;
                                 break;
                             case "Nunca":
-                                row.createCell(currentColumn).setCellValue(0);
+                                row.createCell(currentColumn).setCellValue("never");
                                 doesNotAskToRepeat = true;
                                 break;
                         }
@@ -690,40 +690,40 @@ public class Parser {
                     if(doesNotAskToRepeat)
                     {
                         String[] items = contents.split(", ");
-                        row.createCell(currentColumn).setCellValue(0);
-                        row.createCell(currentColumn+1).setCellValue(0);
-                        row.createCell(currentColumn+2).setCellValue(0);
-                        row.createCell(currentColumn+3).setCellValue(0);
-                        row.createCell(currentColumn+4).setCellValue(0);
-                        row.createCell(currentColumn+5).setCellValue(0);
-                        row.createCell(currentColumn+6).setCellValue(0);
-                        row.createCell(currentColumn+7).setCellValue(0);
+                        row.createCell(currentColumn).setCellValue("no");
+                        row.createCell(currentColumn+1).setCellValue("no");
+                        row.createCell(currentColumn+2).setCellValue("no");
+                        row.createCell(currentColumn+3).setCellValue("no");
+                        row.createCell(currentColumn+4).setCellValue("no");
+                        row.createCell(currentColumn+5).setCellValue("no");
+                        row.createCell(currentColumn+6).setCellValue("no");
+                        row.createCell(currentColumn+7).setCellValue("no");
                         for(String item : items)
                         {
                             switch (item) {
                                 case "Falta de confiança":
-                                    row.createCell(currentColumn).setCellValue(1);
+                                    row.createCell(currentColumn).setCellValue("yes");
                                     break;
                                 case "Receio de parecer ignorante":
-                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    row.createCell(currentColumn + 1).setCellValue("yes");
                                     break;
                                 case "Não querer incomodar":
-                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    row.createCell(currentColumn + 2).setCellValue("yes");
                                     break;
                                 case "Alguém lhe explicará mais tarde":
-                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    row.createCell(currentColumn + 3).setCellValue("yes");
                                     break;
                                 case "Confia no médico e não precisa de saber mais":
-                                    row.createCell(currentColumn + 4).setCellValue(1);
+                                    row.createCell(currentColumn + 4).setCellValue("yes");
                                     break;
                                 case "Falta de tempo ou oportunidade":
-                                    row.createCell(currentColumn + 5).setCellValue(1);
+                                    row.createCell(currentColumn + 5).setCellValue("yes");
                                     break;
                                 case "Desinteresse":
-                                    row.createCell(currentColumn + 6).setCellValue(1);
+                                    row.createCell(currentColumn + 6).setCellValue("yes");
                                     break;
                                 default:
-                                    row.createCell(currentColumn + 7).setCellValue(1);
+                                    row.createCell(currentColumn + 7).setCellValue("yes");
                                     break;
                             }
                         }
@@ -735,14 +735,14 @@ public class Parser {
                 {
                     switch (contents) {
                         case "Sim":
-                            row.createCell(currentColumn).setCellValue(1);
+                            row.createCell(currentColumn).setCellValue("yes");
                             hasMobileDevice = true;
                             break;
                         case "Não":
-                            row.createCell(currentColumn).setCellValue(0);
+                            row.createCell(currentColumn).setCellValue("no");
                             break;
                         case "Não sei":
-                            row.createCell(currentColumn).setCellValue(2);
+                            row.createCell(currentColumn).setCellValue("not sure");
                             break;
                     }
                 }
@@ -752,31 +752,31 @@ public class Parser {
                     if(hasMobileDevice)
                     {
                         String[] items = contents.split(", ");
-                        row.createCell(currentColumn).setCellValue(0);
-                        row.createCell(currentColumn+1).setCellValue(0);
-                        row.createCell(currentColumn+2).setCellValue(0);
-                        row.createCell(currentColumn+3).setCellValue(0);
-                        row.createCell(currentColumn+4).setCellValue(0);
+                        row.createCell(currentColumn).setCellValue("no");
+                        row.createCell(currentColumn+1).setCellValue("no");
+                        row.createCell(currentColumn+2).setCellValue("no");
+                        row.createCell(currentColumn+3).setCellValue("no");
+                        row.createCell(currentColumn+4).setCellValue("no");
                         for(String item : items)
                         {
                             switch (item) {
                                 case "Chamadas e SMS":
-                                    row.createCell(currentColumn).setCellValue(1);
+                                    row.createCell(currentColumn).setCellValue("yes");
                                     break;
                                 case "Acesso à Internet":
-                                    row.createCell(currentColumn + 1).setCellValue(1);
+                                    row.createCell(currentColumn + 1).setCellValue("yes");
                                     break;
                                 case "Aplicações originais do dispositivo (exemplos: bloco de notas":
-                                    row.createCell(currentColumn + 2).setCellValue(1);
+                                    row.createCell(currentColumn + 2).setCellValue("yes");
                                     break;
                                 case "Aplicações que instalou (exemplos: jogos":
-                                    row.createCell(currentColumn + 3).setCellValue(1);
+                                    row.createCell(currentColumn + 3).setCellValue("yes");
                                     break;
                                 case "redes sociais)":
                                 case "calculadora)":
                                     break;
                                 default:
-                                    row.createCell(currentColumn + 4).setCellValue(1);
+                                    row.createCell(currentColumn + 4).setCellValue("yes");
                                     break;
                             }
                         }
@@ -790,22 +790,22 @@ public class Parser {
                     {
                         switch (contents) {
                             case "Android":
-                                row.createCell(currentColumn).setCellValue(0);
+                                row.createCell(currentColumn).setCellValue("android");
                                 break;
                             case "iOS":
-                                row.createCell(currentColumn).setCellValue(1);
+                                row.createCell(currentColumn).setCellValue("iOS");
                                 break;
                             case "Windows":
-                                row.createCell(currentColumn).setCellValue(2);
+                                row.createCell(currentColumn).setCellValue("windows");
                                 break;
                             case "Blackberry":
-                                row.createCell(currentColumn).setCellValue(3);
+                                row.createCell(currentColumn).setCellValue("blackberry");
                                 break;
                             case "Não sei":
-                                row.createCell(currentColumn).setCellValue(4);
+                                row.createCell(currentColumn).setCellValue("not sure");
                                 break;
                             default:
-                                row.createCell(currentColumn).setCellValue(5);
+                                row.createCell(currentColumn).setCellValue("other");
                                 break;
                         }
                     }
@@ -817,13 +817,13 @@ public class Parser {
                     {
                         switch (contents) {
                             case "Não concordo":
-                                row.createCell(currentColumn).setCellValue(0);
+                                row.createCell(currentColumn).setCellValue("disagree");
                                 break;
                             case "Indiferente":
-                                row.createCell(currentColumn).setCellValue(1);
+                                row.createCell(currentColumn).setCellValue("indifferent");
                                 break;
                             case "Concordo":
-                                row.createCell(currentColumn).setCellValue(2);
+                                row.createCell(currentColumn).setCellValue("agree");
                                 break;
                         }
                     }
@@ -835,13 +835,13 @@ public class Parser {
                     {
                         switch (contents) {
                             case "Não concordo":
-                                row.createCell(currentColumn).setCellValue(0);
+                                row.createCell(currentColumn).setCellValue("disagree");
                                 break;
                             case "Indiferente":
-                                row.createCell(currentColumn).setCellValue(1);
+                                row.createCell(currentColumn).setCellValue("indifferent");
                                 break;
                             case "Concordo":
-                                row.createCell(currentColumn).setCellValue(2);
+                                row.createCell(currentColumn).setCellValue("agree");
                                 break;
                         }
                     }
@@ -853,13 +853,13 @@ public class Parser {
                     {
                         switch (contents) {
                             case "Não concordo":
-                                row.createCell(currentColumn).setCellValue(0);
+                                row.createCell(currentColumn).setCellValue("disagree");
                                 break;
                             case "Indiferente":
-                                row.createCell(currentColumn).setCellValue(1);
+                                row.createCell(currentColumn).setCellValue("indifferent");
                                 break;
                             case "Concordo":
-                                row.createCell(currentColumn).setCellValue(2);
+                                row.createCell(currentColumn).setCellValue("agree");
                                 break;
                         }
                     }
@@ -871,13 +871,13 @@ public class Parser {
                     {
                         switch (contents) {
                             case "Não concordo":
-                                row.createCell(currentColumn).setCellValue(0);
+                                row.createCell(currentColumn).setCellValue("disagree");
                                 break;
                             case "Indiferente":
-                                row.createCell(currentColumn).setCellValue(1);
+                                row.createCell(currentColumn).setCellValue("indifferent");
                                 break;
                             case "Concordo":
-                                row.createCell(currentColumn).setCellValue(2);
+                                row.createCell(currentColumn).setCellValue("agree");
                                 break;
                         }
                     }
@@ -889,13 +889,13 @@ public class Parser {
                     {
                         switch (contents) {
                             case "Não":
-                                row.createCell(currentColumn).setCellValue(0);
+                                row.createCell(currentColumn).setCellValue("no");
                                 break;
                             case "Talvez":
-                                row.createCell(currentColumn).setCellValue(1);
+                                row.createCell(currentColumn).setCellValue("maybe");
                                 break;
                             case "Sim":
-                                row.createCell(currentColumn).setCellValue(2);
+                                row.createCell(currentColumn).setCellValue("yes");
                                 break;
                         }
                     }
