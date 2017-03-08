@@ -6,10 +6,18 @@
 #install.packages("readxl")
 #install.packages("ggplot2")
 #install.packages("hexbin")
+#install.packages("psych")
+#install.packages("homals")
+#install.packages("MASS")
+#install.packages("vcd")
 library(corrplot)
 library(readxl)
 library(ggplot2)
 library(hexbin)
+library(psych)
+library(homals)
+library(MASS)
+library(vcd)
 
 #
 # SAVE DATA FROM EXCEL
@@ -48,6 +56,7 @@ colnames(info) <- c("Gend", "Age", "Qual",
                     "D7-use")
 
 # Factoring variables and ordering them
+#info$`A1-own` <- na.omit(info$`A1-own`)
 info$Gend <- factor(info$Gend)
 info$Age <- factor(info$Age)
 info$Qual <- factor(info$Qual, levels = c("lower than 4th grade", "4th grade", "9th grade", "12th grade", "bachelor's degree", "master's degree", "doctoral degree"))
@@ -112,7 +121,7 @@ info$`D5-defs` <- factor(info$`D5-defs`, levels = c("disagree", "indifferent", "
 info$`D6-note` <- factor(info$`D6-note`, levels = c("disagree", "indifferent", "agree"))
 info$`D7-use` <- factor(info$`D7-use`, levels = c("no", "maybe", "yes"))
 
-# Tables with all the data
+# Table with all the data
 summary(info)
 
 
@@ -120,22 +129,80 @@ summary(info)
 # INFO ANALYSIS
 #
 
+
 # Histograms
-ggplot() + aes(info$Gend)+ geom_histogram(binwidth=1)
-ggplot() + aes(info$Age)+ geom_histogram(binwidth=1)
-ggplot() + aes(info$Qual)+ geom_histogram(binwidth=1)
-ggplot() + aes(info$`A-Note`)+ geom_histogram(binwidth=1)
-ggplot() + aes(info$`D-Mobl`)+ geom_histogram(binwidth=1)
+ggplot() + aes(info$Gend) + geom_histogram(stat="count") + labs(title="Gender distribution") + labs(x="Gender")
+ggplot() + aes(info$Age) + geom_histogram(stat="count") + labs(title="Age distribution") + labs(x="Age")
+ggplot() + aes(info$Qual) + geom_histogram(stat="count") + labs(title="Qualifications distribution") + labs(x="Qualifications")
+ggplot() + aes(info$`A-Note`) + geom_histogram(stat="count") + labs(title="Do you take health information notes?") + labs(x="Takes health information notes")
+ggplot() + aes(info$`D-Mobl`) + geom_histogram(stat="count") + labs(title="Do you have a smartphone or tablet?") + labs(x="Has smartphone/tablet")
+
+# Frequency tables
+attach(info)
+info$Gend <- factor(info$Gend, levels = c("male","female")) #removing "other" gender
+info$Qual <- factor(info$Qual, levels = c("12th grade", "bachelor's degree", "master's degree", "doctoral degree")) #removing everything below 12th grade
+info$Age <- factor(info$Age, levels = c("18-25 years old", "26-35 years old", "36-49 years old", "50-64 years old"))
+
+# 2-way frequency table
+X <- info$Gend
+Y <- info$`A2-wght`
+mytable <- table(X,Y)
+mytable
+
+# Contingency tables
+prop.table(mytable)
+prop.table(mytable,1)
+prop.table(mytable,2)
+table(Y,X)
+prop.test(table(X,Y),correct=FALSE) #prop1 são homens, prop2 mulheres; estes são os não
+
+# Chi-square Test
+M <- info$`A2-wght`
+N <- info$`A2-cals`
+mytable <- xtabs(~M+N, data=info)
+#ftable(mytable)
+summary(mytable)
+
+# Alternative Chi-square
+tbl = table(info$Gend, info$`A-Note`)
+tbl
+chisq.test(tbl)
+
+# 3-way frequency table
+Own <- info$`A2-wght`
+Family <- info$`A2-cals`
+Friend <- info$
+tab <- table(Own, Family, Friend)
+ftable(tab)
+#lnames <- list(Gender = c("M","F"), Age = c("18","26", "36", "50", "65"), Qualifications = c("12", "B", "M", "D"))
+#mosaic(tab, set_labels=lnames, shade=TRUE, legend=TRUE)
+mosaic(tab, shade=TRUE, legend=TRUE)
+assoc(tab, shade=TRUE)
+
+# Loglinear Models
+A <- info$Gend
+B <- info$Age
+C <- info$`A-Note`
+mytable <- xtabs(~A+B+C, data=info)
+loglm(~A+B+C, mytable) #A, B & C are pairwise independent
+loglin(~A+B+C+B*C, mytable) #A is partially independent of B and C
+loglm(~A+B+C+A*C+B*C, mytable) #A is independent of B, given C
+loglm(~A+B+C+A*B+A*C+B*C, mytable) #no three-way interaction
 
 # Scatter plots
-plot(hexbin(info$Age, info$`D-Mobl`, xbins=40))
-plot(hexbin(info$Frgt, info$Age, xbins=40))
+#plot(hexbin(info$Age, info$`D-Mobl`, xbins=40))
+#plot(hexbin(info$Frgt, info$Age, xbins=40))
+
+# Total values (= summary info)
+#mytable <- table(info$Gend,info$Age)
+#margin.table(mytable, 1)
+#margin.table(mytable,2)
 
 # Other possible graphs
-qqnorm(info$Age, plot.it = TRUE)
-pairs(cor(info[,c(5,6,7,8)]))
-with(mtcars, boxplot(info$Age, info$`D-Mobl`)) #doesn't make sense with discrete data
-plot(info$Age,info$`D-Mobl`) #useless
+plot(info$Age,info$`D-Mobl`)
 
 # More resources
 # pie3d -- library(plotrix)
+#qqnorm(info$Age, plot.it = TRUE)
+#pairs(cor(info[,c(5,6,7,8)]))
+#with(mtcars, boxplot(info$Age, info$`D-Mobl`)) #doesn't make sense with discrete data
