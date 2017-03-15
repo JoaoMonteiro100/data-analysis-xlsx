@@ -137,6 +137,21 @@ ggplot() + aes(info$Qual) + geom_histogram(stat="count") + labs(title="Qualifica
 ggplot() + aes(info$`A-Note`) + geom_histogram(stat="count") + labs(title="Do you take health information notes?") + labs(x="Takes health information notes")
 ggplot() + aes(info$`D-Mobl`) + geom_histogram(stat="count") + labs(title="Do you have a smartphone or tablet?") + labs(x="Has smartphone/tablet")
 
+# Pie charts
+lbls <- paste(names(info$Gend), "\n", info$Gend, sep="")
+pie(info$Gend, labels = lbls, x=1,
+    main="Pie Chart of Species\n (with sample sizes)")
+
+p = ggplot(data=df, 
+           aes(x=factor(1),
+               y=Summary,
+               fill = factor(info$Gend)
+           )
+) 
+p=p + geom_bar(width = 1) 
+p=p+facet_grid(facets=. ~ gender)
+p
+
 # Frequency tables
 attach(info)
 info$Gend <- factor(info$Gend, levels = c("male","female")) #removing "other" gender
