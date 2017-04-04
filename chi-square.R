@@ -7,7 +7,7 @@ altage <- factor(info$Age, levels = c("18-25 years old", "26-35 years old", "36-
 # 2-way frequency table - notes (own, fam, frnd, othr)
 
 ##### VARIABLE (GENDER, AGE, OR QUALS) #####
-X <- altqual
+X <- altgend
 
 #---
 Y <- info$`A1-own`
@@ -219,16 +219,136 @@ prop.test(mytable,correct=FALSE) #prop1 sao homens, prop2 mulheres; estes sao os
 
 #######################################################
 #######################################################
-Y <- info$`A-Note`
-mytable <- table(X,Y)
-mytable <- mytable[,c("yes","no")]
-prop.test(mytable,correct=FALSE) #prop1 sao homens, prop2 mulheres; estes sao os sim
-
+#Y <- info$`A-Note`
+#mytable <- table(X,Y)
+#mytable <- mytable[,c("yes","no")]
+#prop.test(mytable,correct=FALSE) #prop1 sao homens, prop2 mulheres; estes sao os sim
 
 #######################################################
 #######################################################
 # Chi-square Test
-N <- info$`A-Note`
-mytable <- xtabs(~X+N, data=info)
+#N <- info$`A-Note`
+#mytable <- xtabs(~X+N, data=info)
 #ftable(mytable)
-summary(mytable)
+#summary(mytable)
+
+#######################################################
+
+
+# FALTA INFO NOTE
+
+
+#######################################################
+##
+# USE THIS FOR QUALS & AGE VVVV
+# BUT INVERT VARIABLES (columns = quals/age)
+# vvvvvvvvvvvvvvvvvvvvvv
+
+Y <- info$Frgt
+mytable <- table(X,Y)
+mytable <- mytable[,c("never","occasionally","often","always")]
+mytablemale <- mytable["male",]
+mytablefemale <- mytable["female",]
+mytabletotal <- margin.table(mytable,2)
+prop.test(mytablemale, mytabletotal)
+prop.trend.test(mytablemale, mytabletotal)
+prop.test(mytablefemale, mytabletotal)
+prop.trend.test(mytablefemale, mytabletotal)
+
+Y <- info$Dnot
+mytable <- table(X,Y)
+mytable <- mytable[,c("never","occasionally","often","always")]
+mytablemale <- mytable["male",]
+mytablefemale <- mytable["female",]
+mytabletotal <- margin.table(mytable,2)
+prop.test(mytablemale, mytabletotal)
+prop.trend.test(mytablemale, mytabletotal)
+prop.test(mytablefemale, mytabletotal)
+prop.trend.test(mytablefemale, mytabletotal)
+##################################
+
+Y <- info$Frgt
+mytable <- table(Y,X)
+mytablenever <- mytable["never",]
+mytableoccasionally <- mytable["occasionally",]
+mytableoften <- mytable["often",]
+mytablealways <- mytable["always",]
+mytabletotal <- margin.table(mytable,2)
+prop.test(mytablenever, mytabletotal)
+prop.test(mytableoccasionally, mytabletotal)
+prop.test(mytableoften, mytabletotal)
+prop.test(mytablealways, mytabletotal)
+
+#---
+Y <- info$Dnot
+mytable <- table(Y,X)
+mytablenever <- mytable["never",]
+mytableoccasionally <- mytable["occasionally",]
+mytableoften <- mytable["often",]
+mytablealways <- mytable["always",]
+mytabletotal <- margin.table(mytable,2)
+prop.test(mytablenever, mytabletotal)
+prop.test(mytableoccasionally, mytabletotal)
+prop.test(mytableoften, mytabletotal)
+prop.test(mytablealways, mytabletotal)
+
+#---
+Y <- info$`B-Cnot`
+mytable <- table(Y,X)
+mytablenever <- mytable["never",]
+mytableoccasionally <- mytable["occasionally",]
+mytableoften <- mytable["often",]
+mytablealways <- mytable["always",]
+mytabletotal <- margin.table(mytable,2)
+prop.test(mytablenever, mytabletotal)
+prop.test(mytableoccasionally, mytabletotal)
+prop.test(mytableoften, mytabletotal)
+prop.test(mytablealways, mytabletotal)
+
+#---
+Y <- info$`B1-when`
+mytable <- table(Y,X)
+mytableduring <- mytable["during",]
+mytableafter <- mytable["after",]
+mytablelater <- mytable["later",]
+mytabletotal <- margin.table(mytable,2)
+prop.test(mytableduring, mytabletotal)
+prop.test(mytableafter, mytabletotal)
+prop.test(mytablelater, mytabletotal)
+
+#---
+Y <- info$`C-Undr`
+mytable <- table(Y,X)
+mytablenever <- mytable["never",]
+mytableoccasionally <- mytable["occasionally",]
+mytableoften <- mytable["often",]
+mytablealways <- mytable["always",]
+mytabletotal <- margin.table(mytable,2)
+prop.test(mytablenever, mytabletotal)
+prop.test(mytableoccasionally, mytabletotal)
+prop.test(mytableoften, mytabletotal)
+prop.test(mytablealways, mytabletotal)
+
+#---
+Y <- info$`C2-rept`
+mytable <- table(Y,X)
+mytablenever <- mytable["never",]
+mytableoccasionally <- mytable["occasionally",]
+mytableoften <- mytable["often",]
+mytablealways <- mytable["always",]
+mytabletotal <- margin.table(mytable,2)
+prop.test(mytablenever, mytabletotal)
+prop.test(mytableoccasionally, mytabletotal)
+prop.test(mytableoften, mytabletotal)
+prop.test(mytablealways, mytabletotal)
+
+#---
+Y <- info$`D7-use`
+mytable <- table(Y,X)
+mytableno <- mytable["no",]
+mytablemaybe <- mytable["maybe",]
+mytableyes <- mytable["yes",]
+mytabletotal <- margin.table(mytable,2)
+prop.test(mytableno, mytabletotal)
+prop.test(mytablemaybe, mytabletotal)
+prop.test(mytableyes, mytabletotal)

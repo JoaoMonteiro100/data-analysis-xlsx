@@ -345,7 +345,7 @@ mytable <- xtabs(~M+N, data=info)
 summary(mytable)
 
 # Alternative Chi-square
-tbl = table(altgend, info$`A-Note`)
+tbl = table(altqual, info$`A1-own`)
 tbl
 chisq.test(tbl)
 
