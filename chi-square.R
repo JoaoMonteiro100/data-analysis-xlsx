@@ -352,3 +352,41 @@ mytabletotal <- margin.table(mytable,2)
 prop.test(mytableno, mytabletotal)
 prop.test(mytablemaybe, mytabletotal)
 prop.test(mytableyes, mytabletotal)
+
+
+#####################################
+tbl = table(X, info$Frgt)
+chisq.test(tbl)
+
+tbl = table(X, info$Dnot)
+chisq.test(tbl)
+
+tbl = table(X, info$`B-Cnot`)
+chisq.test(tbl)
+
+tbl = table(X, info$`B1-when`)
+chisq.test(tbl)
+
+tbl = table(X, info$`C-Undr`)
+chisq.test(tbl)
+
+tbl = table(X, info$`C2-rept`)
+chisq.test(tbl)
+
+tbl = table(X, info$`D-Mobl`)
+chisq.test(tbl)
+
+tbl = table(X, info$`D3-rcrd`)
+chisq.test(tbl)
+
+tbl = table(X, info$`D4-trns`)
+chisq.test(tbl)
+
+tbl = table(X, info$`D5-defs`)
+chisq.test(tbl)
+
+tbl = table(X, info$`D6-note`)
+chisq.test(tbl)
+
+tbl = table(X, info$`D7-use`)
+chisq.test(tbl)

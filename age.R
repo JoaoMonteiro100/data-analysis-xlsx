@@ -7,7 +7,7 @@ altage <- factor(info$Age, levels = c("18-25 years old", "26-35 years old", "36-
 # 2-way frequency table - notes (own, fam, frnd, othr)
 
 ##### VARIABLE (GENDER, AGE, OR QUALS) #####
-X <- altqual
+X <- altage
 
 ##---
 #Y <- info$Dnot
