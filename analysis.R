@@ -58,8 +58,13 @@ colnames(info) <- c("Gend", "Age", "Qual",
 # Factoring variables and ordering them
 #info$`A1-own` <- na.omit(info$`A1-own`)
 info$Gend <- factor(info$Gend)
+
 info$Age <- factor(info$Age)
+info$Age <- ordered(info$Age)
+
 info$Qual <- factor(info$Qual, levels = c("lower than 4th grade", "4th grade", "9th grade", "12th grade", "bachelor's degree", "master's degree", "doctoral degree"))
+info$Qual <- ordered(info$Qual)
+
 info$`A-Note` <- factor(info$`A-Note`)
 info$`A1-own` <- factor(info$`A1-own`)
 info$`A1-fam` <- factor(info$`A1-fam`)
@@ -80,17 +85,29 @@ info$`A3-book` <- factor(info$`A3-book`)
 info$`A3-napp` <- factor(info$`A3-napp`)
 info$`A3-sapp` <- factor(info$`A3-sapp`)
 info$`A3-othr` <- factor(info$`A3-othr`)
+
 info$Frgt <- factor(info$Frgt, levels = c("never", "occasionally", "often", "always"))
+info$Frgt <- ordered(info$Frgt)
+
 info$Dnot <- factor(info$Dnot, levels = c("never", "occasionally", "often", "always"))
+info$Dnot <- ordered(info$Dnot)
+
 info$`B-Cnot` <- factor(info$`B-Cnot`, levels = c("never", "occasionally", "often", "always"))
+info$`B-Cnot` <- ordered(info$`B-Cnot`)
+
 info$`B1-when` <- factor(info$`B1-when`, levels = c("during", "after", "later"))
+info$`B1-when` <- ordered(info$`B1-when`)
+
 info$`B2-name` <- factor(info$`B2-name`)
 info$`B2-opns` <- factor(info$`B2-opns`)
 info$`B2-meds` <- factor(info$`B2-meds`)
 info$`B2-trtm` <- factor(info$`B2-trtm`)
 info$`B2-dose` <- factor(info$`B2-dose`)
 info$`B2-othr` <- factor(info$`B2-othr`)
+
 info$`C-Undr` <- factor(info$`C-Undr`, levels = c("never", "occasionally", "often", "always"))
+info$`C-Undr` <- ordered(info$`C-Undr`)
+
 info$`C1-pron` <- factor(info$`C1-pron`)
 info$`C1-volm` <- factor(info$`C1-volm`)
 info$`C1-atti` <- factor(info$`C1-atti`)
@@ -99,7 +116,10 @@ info$`C1-expn` <- factor(info$`C1-expn`)
 info$`C1-ordr` <- factor(info$`C1-ordr`)
 info$`C1-time` <- factor(info$`C1-time`)
 info$`C1-othr` <- factor(info$`C1-othr`)
+
 info$`C2-rept` <- factor(info$`C2-rept`, levels = c("never", "occasionally", "often", "always"))
+info$`C2-rept` <- ordered(info$`C2-rept`)
+
 info$`C21-cnfd` <- factor(info$`C21-cnfd`)
 info$`C21-ignt` <- factor(info$`C21-ignt`)
 info$`C21-bthr` <- factor(info$`C21-bthr`)
@@ -115,11 +135,21 @@ info$`D1-napp` <- factor(info$`D1-napp`)
 info$`D1-iapp` <- factor(info$`D1-iapp`)
 info$`D1-othr` <- factor(info$`D1-othr`)
 info$`D2-os` <- factor(info$`D2-os`, levels = c("android", "blackberry", "iOS", "windows", "other", "not sure"))
+
 info$`D3-rcrd` <- factor(info$`D3-rcrd`, levels = c("disagree", "indifferent", "agree"))
+info$`D3-rcrd` <- ordered(info$`D3-rcrd`)
+
 info$`D4-trns` <- factor(info$`D4-trns`, levels = c("disagree", "indifferent", "agree"))
+info$`D4-trns` <- ordered(info$`D4-trns`)
+
 info$`D5-defs` <- factor(info$`D5-defs`, levels = c("disagree", "indifferent", "agree"))
+info$`D5-defs` <- ordered(info$`D5-defs`)
+
 info$`D6-note` <- factor(info$`D6-note`, levels = c("disagree", "indifferent", "agree"))
+info$`D6-note` <- ordered(info$`D6-note`)
+
 info$`D7-use` <- factor(info$`D7-use`, levels = c("no", "maybe", "yes"))
+info$`D7-use` <- ordered(info$`D7-use`)
 
 # Table with all the data
 summary(info)
