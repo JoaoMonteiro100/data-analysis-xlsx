@@ -239,10 +239,7 @@ prop.test(mytable,correct=FALSE) #prop1 sao homens, prop2 mulheres; estes sao os
 
 
 #######################################################
-##
-# USE THIS FOR QUALS & AGE VVVV
-# BUT INVERT VARIABLES (columns = quals/age)
-# vvvvvvvvvvvvvvvvvvvvvv
+
 
 Y <- info$Frgt
 mytable <- table(X,Y)
@@ -360,6 +357,12 @@ chisq.test(tbl)
 
 tbl = table(X, info$Dnot)
 chisq.test(tbl)
+
+boxplot(info$Dnot~altage)
+summary(info$Dnot)
+median(info$Dnot~X)
+t <- table(info$Dnot, X)
+prop.table(t,2)
 
 tbl = table(X, info$`B-Cnot`)
 chisq.test(tbl)

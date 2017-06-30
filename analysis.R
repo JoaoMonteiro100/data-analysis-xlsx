@@ -160,15 +160,54 @@ summary(info)
 #
 
 # General info histograms
-ggplot() + aes(info$Gend) + geom_histogram(stat="count") + labs(title="Gender distribution") + labs(x="Gender")
+# Ex: ggplot() + aes(info$Age) + geom_histogram(stat="count") + labs(title="Age distribution") + labs(x="Age")
+
+###########################
+#VARIABLES
+###########################
+barfill <- "#0081AF"
+barlines <- "#0B4F6C"
+x <- info$Gend
+
+##########################
+#Pie
+################
+p <- ggplot(x, aes(x=1, y=time, fill=activity)) +
+  geom_bar(stat="identity") +
+  ggtitle("How I've spent my PhD hours this week")
+print(p)
+#################
+
+#Vertical
+################
+ggplot() + aes(x) + geom_bar(aes(y = (..count..)/sum(..count..)*100),colour = barlines, fill = barfill) + labs(x="Gender") + labs(y="Percentage") + theme_bw() +
+  theme(axis.line = element_blank(),
+        panel.grid.major = element_line(colour = "#d3d3d3"),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(), panel.background = element_blank(),
+        plot.title = element_text(size = 14, face = "bold"),
+        axis.text.x=element_text(colour="black", size = 9),
+        axis.text.y=element_text(colour="black", size = 9))
+################
+
+#Horizontal
+################
+ggplot() + aes(x) + geom_bar(aes(y = (..count..)/sum(..count..)*100),colour = barlines, fill = barfill) + labs(x="Gender") + labs(y="Percentage") + theme_bw() + coord_flip() +
+  theme(axis.line = element_blank(),
+        panel.grid.major = element_line(colour = "#d3d3d3"),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(), panel.background = element_blank(),
+        plot.title = element_text(size = 14, face = "bold"),
+        axis.text.x=element_text(colour="black", size = 9),
+        axis.text.y=element_text(colour="black", size = 9))
+################
+
+
+
 ggplot() + aes(info$Age) + geom_histogram(stat="count") + labs(title="Age distribution") + labs(x="Age")
 ggplot() + aes(info$Qual) + geom_histogram(stat="count") + labs(title="Qualifications distribution") + labs(x="Qualifications")
 ggplot() + aes(info$`A-Note`) + geom_histogram(stat="count") + labs(title="Do you take health information notes?") + labs(x="Takes health information notes")
 ggplot() + aes(info$`D-Mobl`) + geom_histogram(stat="count") + labs(title="Do you have a smartphone or tablet?") + labs(x="Has smartphone/tablet")
-
-
-
-
 
 
 
